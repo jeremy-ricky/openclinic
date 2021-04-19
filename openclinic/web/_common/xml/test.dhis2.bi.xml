@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dhis2>
+	<dataset label="DSNIS-HOP - Fiche 1 - Activité globale du service" type="title" uid="sPSV32hVtyE"/>
+	<dataset label="DSNIS-HOP - Fiche 1 - Activité globale du service - entrées" type="encounter" encountertype="admission" incoming="1" uid="sPSV32hVtyE">
+		<categoryOptionCombo type="origin">
+			<option uid="dBEOeLVuNXW" value="other|residence" name="Non-référés"/>
+			<option uid="XQxobLpM71T" value="healthcenter" name="Référés par CdS"/>
+			<option uid="tYIvBZGH9zh" value="otherhospital" name="Référés par autre hôpital"/>
+			<option uid="fEu2DsBnZ7U" value="hospital.consultation" name="Transfert interne depuis consultation"/>
+			<option uid="ZVk1JwxWf95" value="hospital" name="Transfert interne autre service"/>
+		</categoryOptionCombo>
+		<attributeOptionCombo type="department">
+			<option uid="MZjMuh63Ifp" value="chi" name="Chirurgie"/>
+			<option uid="f2Sax7LAVlE" value="den" name="Dentisterie"/>
+			<option uid="RldtGXs28Uv" value="gyn" name="Gyneco-obstetrique"/>
+			<option uid="bMn8o0zyWEh" value="int" name="Medecine interne"/>
+			<option uid="WKrTHi6Sojt" value="neo" name="Neonatologie"/>
+			<option uid="nrh7nXsJHZt" value="oph" name="Ophtalmologie"/>
+			<option uid="F14dNLQGLV6" value="kin" name="Rehabilitation-Kinesitherapie"/>
+			<option uid="qM0kdi1EawT" value="orl" name="ORL"/>
+			<option uid="ZZqiUIeo96d" value="ped" name="Pediatrie"/>
+			<option uid="oURmlhrsYH6" value="oth" name="Soins intensifs"/>
+		</attributeOptionCombo>
+		<dataelements>
+			<dataelement unique="encounters" uid="CfZTmDwZUh7" label="Nombre d'entrées du mois"/>
+		</dataelements>
+	</dataset>
+	<dataset label="DSNIS-HOP - Fiche 1 - Activité globale du service - sorties (vivant)" type="encounter" encountertype="admission" outgoing="1" uid="sPSV32hVtyE">
+		<categoryOptionCombo type="outcome">
+			<option uid="iiX9rcRsZPL" value="better" name="Amélioré/Retour à domicile"/>
+			<option uid="thSLGzl7Azc" value="contrareference" name="Contre référés"/>
+			<option uid="zqQlrb99QaB" value="transfer.infra" name="Transfert niveau inférieur"/>
+			<option uid="HP5t5QAKdcd" value="transfer.equal" name="Transfert niveau équivalent"/>
+			<option uid="ZtwCHXqHku8" value="transfer.supra" name="Transfert niveau supérieur"/>
+			<option uid="urFMHQ7JHgp" value="transfer.intra" name="Transfert intrahospitalier"/>
+			<option uid="SajgDVES0a7" value="againstmedicaladvice" name="Contre avis médical"/>
+			<option uid="uTDzks6q9iT" value="escape" name="Evadé"/>
+		</categoryOptionCombo>
+		<attributeOptionCombo type="department">
+			<option uid="MZjMuh63Ifp" value="chi" name="Chirurgie"/>
+			<option uid="f2Sax7LAVlE" value="den" name="Dentisterie"/>
+			<option uid="RldtGXs28Uv" value="gyn" name="Gyneco-obstetrique"/>
+			<option uid="bMn8o0zyWEh" value="int" name="Medecine interne"/>
+			<option uid="WKrTHi6Sojt" value="neo" name="Neonatologie"/>
+			<option uid="nrh7nXsJHZt" value="oph" name="Ophtalmologie"/>
+			<option uid="F14dNLQGLV6" value="kin" name="Rehabilitation-Kinesitherapie"/>
+			<option uid="qM0kdi1EawT" value="orl" name="ORL"/>
+			<option uid="ZZqiUIeo96d" value="ped" name="Pediatrie"/>
+			<option uid="oURmlhrsYH6" value="oth" name="Soins intensifs"/>
+		</attributeOptionCombo>
+		<dataelements>
+			<dataelement unique="encounters" uid="nVcbvt9MiXz" label="Nombre de sorties du mois"/>
+		</dataelements>
+	</dataset>
+</dhis2>

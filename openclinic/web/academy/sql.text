@@ -1,0 +1,74 @@
+=================================================================================
+SELECT lastname, firstname, OC_ENCOUNTER_TYPE, OC_ENCOUNTER_SERVICEBEGINDATE 
+FROM oc_encounters,adminview, oc_encounter_services 
+WHERE adminview.personid=OC_ENCOUNTER_PATIENTUID AND oc_encounters.OC_ENCOUNTER_SERVERID=oc_encounter_services.OC_ENCOUNTER_SERVERID 
+AND oc_encounters.OC_ENCOUNTER_OBJECTID=oc_encounter_services.OC_ENCOUNTER_OBJECTID AND OC_ENCOUNTER_SERVICEENDDATE is null AND personid=1;
+==================================================================================
+SELECT MAX(accesstime), userid FROM accesslogs GROUP BY userid HAVING MAX(accesstime) < '2020-11-04';
+=====================================================================================
+Pour les dates :
+<%SH.writeDefaultDateInput(session, null, "lastaccess", lang, contextpath) %>
+============================================================================
+<input type='checkbox' class='text' checked name='destactiveuser/>
+=======================================================================
+ELECT * FROM healthrecord, transactions, items WHERE personid = 3 
+AND healthrecord.healthRecordId = transactions.healthRecordId 
+AND healthrecord.serverid = transactions.serverid AND transactions.transactionId = items.transactionId 
+AND transactions.serverid = items.serverid;
+===========================================================================
+Partie du code de la Date normale :
+<td class='admin'><%=getTran(request, "web", "lastdate", sWebLanguage) %></td>
+<td class='admin2'><%=SH.writeDefaultDateInput(session, (TransactionVO)transaction, "ITEM_TYPE_CHOCOLATELASTDATE", sWebLanguage, sCONTEXTPATH)%></td>			        
+=============================================================================
+Pour creer un racourcis pour un profil
+Systeme -> Profil -> Gestion des raccourcis des contacts -> puis choisir
+===========================================================================
+pour ajouter un nouveau ecrat dans openclinic on ouvre defaultForm.jsp qui se trouve dans healthrecord
+puis renomer accessrigth (ex. "academy.chocolateallergy") dans le nouveau formulaire(le meme nom que ce qui se trouve dans forwards.xml
+1. On ouvre le fichier examinations.xml qui se trouve dans _common -> xml -> examinations.xml
+2. On ajouter une nouvelle ligne (Row) de transaction type en incrementtant le numeros qui le convient
+3. pour lier un ecrat de saisi a un transation type on ouvre le forwards.xml
+4. et puis on ajoute une nouvelle ligne dans forwards
+5. On va dans systeme -> gestion -> Mis a jour des examens pour charger les ajout dans la base de donnee
+6. On redemare tomcat
+7. On va dans systeme -> gestion -> Gestion des examens par service -> on choisi un service a atacher -> cliquer boutton 'modifier'
+8. Il faut ajouter manuelement ITEM (ITEM_TYPE_CONTEXT_ENCOUNTERUID) pour lier au contact a des documents clinic : Systeme -> Gestion -> Gestion des TransactionItems -> puis renomer l'ITEM
+9. Il faut associer le droit d'acces dans le fichier permissions.xml
+=================================================================================
+Une requette qui fait la concatenation de identifiants : 
+Option 1 :
+SELECT OC_INSURAR_NAME AS 'Assurreur',oc_debet_insuraramount AS 'Total' 
+FROM oc_insurars,oc_debets, oc_insurances WHERE OC_DEBET_INSURANCEUID=OC_INSURANCE_SERVERID||'.'||OC_INSURANCE_OBJECTID 
+AND OC_INSURANCE_INSURARUID=OC_INSURAR_SERVERID||'.'||OC_INSURAR_OBJECTID AND OC_DEBET_SERVICEUID='CL.LAB';
+
+Option 2 : Est c'est la meuilleure requette
+SELECT OC_INSURAR_NAME AS 'Assurreur',SUM(oc_debet_insuraramount) AS 'Total'
+    -> FROM oc_insurars,oc_debets,oc_insurances
+    -> WHERE
+    -> REPLACE(OC_DEBET_INSURANCEUID,'1.','')=OC_INSURANCE_OBJECTID AND
+    -> REPLACE(OC_INSURANCE_INSURARUID,'1.','')=OC_INSURAR_OBJECTID AND
+    -> OC_DEBET_SERVICEUID='CL.LAB' GROUP BY OC_INSURAR_NAME;
+
+==================================================================================
+Page jsp pour faire un rapport financier:
+On trouve la partie du code en format csv
+dans web -> util -> csvDocs.jsp
+================================================================
+N.B : Pour tjr trouver les donnees de patient dans d'autres tables qui sont liee, on doit allez chercher dans table 'AdminView'
+===============================================================================================================
+Requette pour le rapport avec total en PDF :
+
+SELECT OC_DEBET_DATE, OC_PRESTATION_DESCRIPTION, OC_DEBET_AMOUNT+OC_DEBET_INSURARAMOUNT AMOUNT 
+FROM AdminView, OC_ENCOUNTRS, OC_PRESTATIONS,OC_DEBETS
+WHERE personid=oc_encounter_patientuid AND REPLACE(oc_debet_encounteruid,'1.','')=oc_encounter_objectid AND
+REPLACE(oc_debet_prestationuid,'1.','')=oc_prestation_objectid AND oc_debet_date>=? AND oc_debet_date<? AND oc_debet_serviceuid=?;
+========================================================================================
+
+
+
+
+
+
+
+
+
